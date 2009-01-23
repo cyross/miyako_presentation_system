@@ -1,0 +1,410 @@
+﻿*******************************************************************************
+【   作者名   】　サイロス誠
+【  ソフト名  】　Miyako Presentation System2
+【 バージョン 】　1.0
+【   作成日   】　2009/01/31
+【    種別    】　フリーウェア
+【  開発言語  】　Ruby 1.9.1-rc2
+【 ランタイム 】　Ruby 1.9.1-rc1～,Ruby/SDL2.0b,Miyako2.0～
+【  対応機種  】　Windows 2000/XP/Vista,Linux,Mac OS X
+【   再配布   】　GNU LGPL 2.1に基く
+【    転載    】　GNU LGPL 2.1に基く
+【ホームページ】　http://www.twin.ne.jp/~cyross/Miyako/
+【   連絡先   】　cyross@po.twin.ne.jp
+*******************************************************************************
+
+【 はじめに 】
+
+このソフトは、Ruby(Ruby/SDL)を使用したゲームライブラリ「Miyako2.0」をベースとしたプレゼンテーションシステムです。
+本ファイルは、プレゼンテーションシステム「Miyako Presentation System2(MPS2)」のために用意した説明ファイルです。
+
+【   特徴    】
+
+このシステムの特徴は以下の通りです。
+
+・Rubyで記述することでプレゼンのスライドが作成できる
+・スライドの大きさを変えられる(800x600まで)
+・上下左右方向へのスライドを作成できる
+・（略）
+
+ちなみに、今のところ以下の問題・制限があります。
+
+・エラーの整備が不十分
+・ドキュメントが全然整っていない（リファレンスはまだまだ・・・）
+
+【 開発環境  】
+
+＜メイン開発PC＞
+CPU : Core2Duo E6850
+MEM : 8GB(2GBx4)
+M/B : GIGABYTE P35-DS4
+VID : GeForce 8800GT
+S/B : Creative SoundBlaster X-Fi
+PAD : BUFFALO BGC-FC802
+      Logicool G-UF13
+OS  : Microsoft WindowsXp SP2
+      Microsoft WindowsVista Ultimate(x64) SP1
+DEV : Notepad++
+      ActiveRuby 1.9.1-rc2 + Ruby/SDL 2.0b + Miyako 2.0
+      MinGW+MSYS(miyako_no_katanaビルド)
+
+＜サブ開発PC＞
+Panasonic Let'sNOTE Light R3
+CPU : PentiumM 1.1GHz
+MEM : 784(256+512)MB
+PAD : SANWA SUPPLY JY-P1W
+OS  : Microsoft WindowsXp SP2
+DEV : Notepad++
+      ActiveRuby 1.9.1-rc2 + Ruby/SDL 2.0b + Miyako 2.0
+      MinGW+MSYS(miyako_no_katanaビルド)
+
+【 動作環境  】
+
+WindowsXp Home/Pro、WindowsVista、Linux等、Ruby/SDLが動作する環境
+(但し、Windows,Linux以外の動作未確認です
+ もし動いたらレポートお願いします)
+
+ＣＰＵ　　　　：PentiumIII以降（Pentium4奨励、動画使うなら2GHzは欲しい）
+メモリ　　　　：256MB（512MB以上奨励）
+ビデオメモリ　：8MB（32bitカラー対応、64MB以上奨励）
+サウンドカード：必須(出来ればSoundBlaster Live!クラス)
+
+Ruby1.9.1-rc1以降
+Ruby/SDL 2.0b＋対応SDLライブラリ群
+(SDL、SDL_ttf、SDL_image、SDL_Mixer、SGE、smpeg)
+Miyako2.0以降
+
+【 ファイル構成  】
+
+アーカイブファイルを展開すると以下のファイルが展開されます。
+
+・Presen/
+　       main.rb（MPSメインファイル）
+　       setting.rb（設定ファイル）
+　       readme.txt（本ファイル）
+　       lib/
+　           common.rb（基本設定ファイル）
+　           modules.rb（各種モジュールファイル）
+　           main_scene.rb（メインルーチン）
+　           slide_nodes.rb（スライド表示部ファイル）
+　           select_chapter.rb（章選択部ファイル）
+　           preset.rb（動的requireファイル作成対応ファイル）
+　           log_timer.rb（タイマー表示部ファイル）
+　       preset_image/(プリセット画像格納用)
+　       image/(追加画像格納用)
+　       slides/(スライドファイル格納用)
+　       plugins/(プラグインファイル格納用)
+         tmp/(テンポラリ用)
+
+【  インストール   】
+
+以下の手順でインストールを行います。
+
+１．Rubyのインストール
+
+Linuxでは標準でRubyがインストールされていいるはずですので説明は割愛します。
+なお、バージョンは最新の1.8系統（出来れば1.8.4以降）でお願いします。
+
+Windowsでは、以下のサイトにあるActiveRubyのインストールをお願いします。
+（詳しい説明は割愛）
+
+「COM Meets Ruby」
+http://arton.hp.infoseek.co.jp/indexj.html
+
+また、Windows用には、後述の「Ruby、SDL、Ruby/SDLパック」というものがあり、これをインストールすると、別途Ruby/SDLをインストールすることなく、RubyとRuby/SDLを利用することが出来ます（但し、Windowsの詳しい操作に慣れていない方には難しい作業が必要になる可能性があります。また、ベースとなっているRuby/SDLがv1.2ですので、MP3ファイルの再生はサポートされておりません）。
+
+２．SDLのインストール
+
+Linuxでインストールされる場合は、まずSDLをインストールする必要があります。
+以下のサイトでSDLが配布されていますので必要なライブラリをダウンロードします。
+
+http://www.libsdl.org/
+
+必須ライブラリは以下の通り
+・SDL
+・SDL_image
+・SDL_Mixer
+・SDL_ttf
+・SGE
+・SMPEG(←1.4で追加)
+
+Windowsでは、Ruby/SDL公式サイトにあるバイナリパッケージや、Ruby/SDL入りRubyパッケージのインストールの方が便利でしょう。
+
+インストールが完了したら、続いてRuby/SDLをインストールします。
+
+３．Ruby/SDLのインストール
+
+もうひとつの必須ライブラリ、Ruby/SDL 2.0bをインストールします、。。
+インストールの仕方は以下のRuby/SDL公式サイトを参考にしてください。
+
+http://www.kmc.gr.jp/~ohai/rubysdl.html
+
+Windowsでは、Ruby/SDLバイナリパッケージの使用をお奨めします。
+
+なお、RubyやSDL、Ruby/SDLのインストールに関するトラブルは当方では一切責任を負いません。
+また、インストールに関する質問にも受付できません。
+自己責任でお願いします。
+
+４．Miyakoのインストール
+
+展開したフォルダにあるinstall_miyako.rbをRubyで実行します。
+
+インストールには、以下のオプションが利用できます。
+
+--force :     Rubyライブラリフォルダに既にMiyakoフォルダがあるときはインストールを行いませんが、インストールを強制したいときに使います。
+
+また、本ライブラリでは、標準フォントとして「ＭＳ　明朝」「ＭＳ　ゴシック」
+「さざなみフォント」「VLゴシックフォント」が利用できます。
+
+フォントのインストール等については自己責任でお願いします。
+（MS明朝／ゴシックはWindows標準添付ですので、特にインストールの必要がありません）
+
+５．MPS2のインストール
+
+本ファイルを展開したフォルダ・ディレクトリを適当な場所に置きます。
+
+これでインストールが完了です。
+
+【 アンインストール  】
+
+特に、レジストリなどのシステム部分をいじっていないので、プレゼンのディレクトリを削除
+すれば完了です。
+
+【　操作方法　】
+
+操作方法は以下の３段階に分けて説明いたします。
+
+０）ＭＰＳの起動
+
+　ＭＰＳを起動するときは、コマンドラインでmain.rbがあるディレクトリに移動して、
+
+　「ruby main.rb」と入力することで起動します。
+
+１）章選択画面
+
+　ここでは、コマンドウインドウから表示させたい章を選択します。
+　矢印キーもしくはゲームパッドの方向ボタンの上下で選択します。
+　表示させたい章にカーソルが設定されているときにｚキーもしくは１番ボタンを
+　押すと、スライドが表示されます。
+
+２）スライド表示画面
+
+　スライド画面では、上下左右方向に矢印が表示されています。
+　表示されている方向が、移動できる方向です。
+
+　矢印キーもしくは方向ボタンを押すことで移動することができます。
+
+　ｘキーもしくは２番ボタンを押すと、章選択画面に戻ります。
+
+　（注：他に、特定のボタンを押したり一定時間経つことで、
+　　　　画面効果や別のスライドを表示させることができます）。
+
+３）MPS2の終了
+
+　終了するときは、ウインドウの消去ボタン（×ボタンなど）を押すか、
+　ESCキーを押すと終了します（確認はされないので注意！）。
+
+【  スライドの作り方   】
+
+本項では、スライドの作成を説明します。
+
+大まかに言って、スライド表示に必要な作業は次の３つ。
+１）素材の用意
+２）スライドの記述
+３）chapters.rbへの反映
+
+１）はスルーして、２）から説明を始めます。
+
+・スライドの記述
+
+本システムは、スライドの構成は、「章単位」と「スライド単位」に分けられます。
+章はmodule、スライドはclassに対応します。
+
+本テキストでは、一つの章(章名「テスト」)、二つのスライドで構成されているとします。
+ちなみに、本テキストでは、章に対応するモジュール名をChapter1、スライドに対応するクラス名をSlide1、Slide2とします。
+
+スライドを用意するには、slides フォルダにRubyスクリプトを作成する必要があります。
+ここは、試しに chapter1.rb とします。
+まず、Chapter1,Slide1,Slide2を用意します。
+続いて、章として管理するモジュールには Chapter モジュール、スライドには MPSSlide モジュールをそれぞれ mixin します。
+
+module Chapter1
+  include Chapter
+
+  class Slide1
+    include MPSSlide
+  end
+
+  class Slide2
+    include MPSSlide
+  end
+end
+
+次に、章名を定義します。これは、モジュールメソッド Chapter1.title を オーバーライドすることで実装します。
+
+module Chapter1
+  include Chapter
+
+  def self.title; "テスト" end
+
+  (略)
+end
+
+続いて、スライドを作成します。各スライドの initialize メソッドを定義します。
+
+class Slide1
+  include MPSSlide
+
+  def initialize
+    init(Slide["640x480"])
+  end
+end
+
+initialize メソッドの内部では、モジュールメソッド init を呼び出します。
+これは、スライドの初期化に必要なメソッド呼び出しですので忘れないでください。
+引数の Slide["640x480"] は、スライドの初期化を行っています。
+ここでは、大きさが640x480のスライドを作成することになります。
+
+次に、スライドの内容を記述します。
+たとえば、文字を表示させたいときは以下の様にします。
+
+def initialize
+  init(Slide["640x480"])
+  font = Font.sans_serif
+  font.color = black
+  font.size = 32
+end
+
+まず、font インスタンスの準備を行います。
+できた font インスタンスを、Shape.text メソッドに渡します。
+
+def initialize
+  init(Slide["640x480"])
+  font = Font.sans_serif
+  font.color = black
+  font.size = 32
+  self[:text1] = Shape.text(:font=>font){ "テストです。" }
+end
+
+Shape.text メソッドは、文字列を指定のフォントでスプライト化させたものです。
+できた文字列の画像を、内部での名称を「:text1」として、スライドに関連づけます。
+
+def initialize
+  init(Slide["640x480"])
+  font = Font.sans_serif
+  font.color = black
+  font.size = 32
+  self[:text1] = Shape.text(:font=>font){ "テストです。" }
+end
+
+次に、:text1 の文字列をスライドの真ん中に移動させます。
+これは、インスタンスを centering メソッドで呼び出します。
+
+def initialize
+  init(Slide["640x480"])
+  font = Font.sans_serif
+  font.color = black
+  font.size = 32
+  self[:text1] = Shape.text(:font=>font){ "テストです。" }.centering
+end
+
+ちなみに、スライドには、スプライト(画像)や、アニメーションを貼り付けることが可能です。
+表示順は、先に貼り付けたほうが後ろに表示されます。
+
+  self[:spr1] = Sprite.new(:file=>"hoge.png", :type=>:ac).center.bottom
+  # center メソッドはスライドの左右の中間に貼り付けます
+  # bottom メソッドはスライドの下部に貼り付けます
+
+更に、スライドを移動させるための矢印を定義します。
+定義には、add_arrow もしくは add_arrow_ex メソッドを使用します。
+たとえば、下に移動したときにSlide2を瞬時に表示させるには、以下の様にします。
+
+  add_arrow(:down, Slide2)
+
+第1引数のシンボルは、移動方向を示しており、上方向は:up、左方向は:left、右方向は:rightを指定します。
+上方向に、移動しながらSlide2を表示させるには、add_arrow_ex メソッドを使用します。
+移動専用のクラス、StandardMoveクラスのインスタンスが必要になるためです。
+ここでは、StandardMoveFactory.createメソッドを使います。引数は移動単位(ピクセル数)です。
+
+  add_arrow_ex(
+    :event => :down,
+    :slide => Slide2,
+    :move_type => StandardMoveFactory.create(16)
+  )
+
+また、5秒経ったときに左へ移動するようにするには、明示的にタイマー(TimerTrigger クラスのインスタンス)
+を指定します。
+
+  add_arrow_ex(
+    :event => :down,
+    :slide => Slide2,
+    :trigger => TimerTrigger.new(5)
+    :move_type => StandardMoveFactory.create(16)
+  )
+
+これで、Slide1クラスのinitializeメソッドは以下の様になります。
+
+def initialize
+  init(Slide["640x480"])
+  font = Font.sans_serif
+  font.color = black
+  font.size = 32
+  self[:text1] = Shape.text(:font=>font){ "テストです。" }.centering
+  add_arrow(:down, Slide2)
+end
+
+矢印は複数追加することができます。同じ方向の矢印が複数ある場合は、先に登録されたほうか、
+最初に条件に合った矢印の処理を実行します。
+(条件は、true/falseを返すブロックを、add_arrow_exメソッドのハッシュ引数(キーは:condition)に関連づけます)
+
+同様に、Slide2クラスのinitializeメソッドを定義します。
+
+class Slide2
+  include MPSSlide
+  def initialize
+    init(Slide["640x480"])
+    font = Font.sans_serif
+    font.color = black
+    font.size = 16
+    self[:text1] = Shape.text(:font=>font){ "できますか？" }.centering
+    add_arrow_ex(
+      :event => :up,
+      :slide => Slide1,
+      :trigger => TimerTrigger.new(3)
+    )
+  end
+end
+
+最後に、 chapters.rb に、作成した章を追加します。
+
+Chapters.add_chapter Chapter1, Chapter1::Slide1
+
+add_chapter モジュールメソッドで、プレゼンシステムに章を関連づけることができます。
+第1引数はモジュール名、第2引数には、最初に表示させるスライドに対応させたクラス名を記述します。
+
+できあがったしたプレゼンを実行するときは、main.rb を Ruby で実行します。
+これで、問題なく動作したときは完成です。
+
+【ライセンス】
+
+本ライブラリはGNU Lesser General Public Lisence 2.1に準拠しています。
+しかし、本ライブラリを使用したソフトウェアについては、その制作者に帰属します。
+ただし、事後でも構いませんので連絡いただけると幸いです。
+
+同時に収録している、wait_cursor.png、cursor.png、dice.pngはご自身のMiyako Scriptでご自由に使っていただいて構いません。
+
+（imageフォルダの画像・soundフォルダの音声は、サイロス誠に著作権を有していることにご注意ください！）
+
+フォントの再利用につきましては、それぞれのフォントのライセンスに従うよう、ご了承お願いいたします。
+
+【   免責    】
+
+本ソフトは”無保証”です。
+本ソフトを使用した事によるトラブルにつきましては、いかなる理由があっても一切責任を負いません。
+本ソフトのバージョンアップやバグフィックスには出来る限り対処いたします。しかし、上記に対する責務は負いません。
+
+【 開発履歴  】
+
+V1.0(2009.01.31)
+
+・初版
