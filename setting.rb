@@ -16,7 +16,7 @@ class Setting
   attr_reader :box_color # 章選択ボックスの背景色
   
   def initialize
-    @bg_filename = "image/hachune_back_02.png"
+    @bg_filename = "#{PRESET_IMAGE_DIR}/presen_bg.png"
     @arrow_filename = "#{PRESET_IMAGE_DIR}/arrow_blue.png"
     @wait_cursor_filename = "#{PRESET_IMAGE_DIR}/wait_cursor.png"
     @select_cursor_filename = "#{PRESET_IMAGE_DIR}/cursor.png"

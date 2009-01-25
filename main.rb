@@ -23,6 +23,7 @@ require 'setting'
 require 'lib/modules' # ユーティリティモジュール群を組み込み
 require 'lib/log_timer'
 require 'lib/common'
+require 'lib/plugin_manager'
 load 'lib/preset.rb', true # requires.rb の作成
 
 include Miyako
@@ -34,6 +35,7 @@ require 'tmp/requires' # 作成した requires.rb を読み込んで、スライ
 require 'lib/select_chapter'
 require 'lib/slide_nodes'
 require 'lib/main_scene'
+load 'on_startup_plugin.rb', true # 起動時に同時に実行するプラグインを登録
 
 presen = Story.new
 presen.run(MainScene)

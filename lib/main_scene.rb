@@ -7,6 +7,9 @@ class MainScene
     @yuki = Yuki.new
     @yuki.select_textbox(@com.selectbox[:box])
     @yuki.select_commandbox(@com.selectbox[:box])
+    # マウス右クリックによるキャンセルを禁止
+    @yuki.cancel_checks.clear
+    @yuki.cancel_checks << lambda{ Input.pushed_all?(:btn2) }
     titles = Chapters.titles
     chapters = Chapters.startup_chapters
     @commands = Array.new(titles.size){|idx|
@@ -25,14 +28,14 @@ class MainScene
       dia.add_arrow(:show_slide, :start)          {|from|  from.finished? }
       dia.add_arrow(:end, nil)                    {|from|  from.finished? }
     }
-    @board = WriteBoard.instance
+    @plugins = Plugins.create
   end
 
   def setup
     @yuki.setup
     @com.timer.start
     @pr.start
-    @board.clear
+    @plugins.start
   end
 
   def update
@@ -40,20 +43,14 @@ class MainScene
     @pr.update_input
     @pr.update
     return nil if @pr.finish?
-    @board.clear if Input.click?(:right)
-    pos = Input.get_mouse_position
-    if Input.mouse_trigger?(:left)
-      @board.draw(pos[:x], pos[:y])
-    else
-      @board.reset
-    end
+    @plugins.update
     return @now
   end
 
   def render
     @com.render
     @pr.render
-    @board.render
+    @plugins.render
   end
   
   def plot(yuki)
@@ -65,10 +62,11 @@ class MainScene
   def final
     @com.timer.stop
     @pr.stop
+    @plugins.stop
   end
 
   def dispose
     @com.dispose
-    @board.dispose
+    @plugins.dispose
   end
 end
