@@ -39,6 +39,7 @@ class ShowSlide
       # 移動中の時は、移動を優先
       return
     end
+    @slide.update_animation
     @slide.update
     if (ret = @slide.trigger?)
       @slide.post_trigger
@@ -75,8 +76,6 @@ class ShowSlide
       @moving.update
     else
       @slide.update_input(list)
-      @slide.update_animation
-      @slide.update
     end
     @slide.get_arrow_dirs.each{|ar| @com.arrow[ar].update_animation }
   end

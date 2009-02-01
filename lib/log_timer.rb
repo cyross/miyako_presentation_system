@@ -10,13 +10,14 @@ class LogTimer
     @font_size = 32
     @font = Miyako::Font.sans_serif
     @font.size = @font_size
-    @font.color = Color[:white]
+    @font.color = Color[:black]
     size = [Miyako::Screen::w, @font.line_height]
-    @spr = Miyako::Sprite.new(:size => size, :type => :ac).bottom
+    @spr = Miyako::Sprite.new(:size => size, :type => :ac).left.bottom
     @from = Time.now
     @to = Time.now
     @timer = 0
     @update = false
+		self[:node] = self
   end
 
   def start
@@ -51,6 +52,7 @@ class LogTimer
   def render
     @spr.fill([0,0,0,0])
     @font.draw_text(@spr, "経過時間："+Time.at(@timer).getutc.strftime("%H:%M:%S"), 0, 0)
+		@spr.render
   end
   
   def dispose
@@ -64,8 +66,10 @@ class LogTimerManager
   end
   def start; @tm.start end
   def stop; @tm.stop end
+  def reset; @tm[:main][:node].reset end
   def pause; @tm.pause end
-  def resume; @tm.pause end
+  def resume; @tm.resume end
+  def update; @tm.update end
   def render; @tm.render end
   def dispose; @tm.dispose end
 end

@@ -40,6 +40,8 @@ class MainScene
 
   def update
     return nil if Input.quit_or_escape?
+		@com.timer.reset if Input.pushed_any?(:btn6)
+		@com.timer.update
     @pr.update_input
     @pr.update
     return nil if @pr.finish?
